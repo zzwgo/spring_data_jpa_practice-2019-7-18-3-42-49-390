@@ -3,6 +3,7 @@ buildscript {
         springBootVersion = '2.0.3.RELEASE'
     }
     repositories {
+	 maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -11,18 +12,26 @@ buildscript {
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
     }
 }
+plugins {
+    id "org.flywaydb.flyway" version "5.2.4"
+}
+
+flyway {
+    url = 'jdbc:h2:file:./h2/org'
+    user = 'sa'
+}
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.junit.platform.gradle.plugin'
-
 group = 'com.tw'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+ maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     mavenCentral()
 }
 
@@ -41,3 +50,4 @@ dependencies {
     testCompile 'org.assertj:assertj-core:3.10.0'
     testCompile 'org.mockito:mockito-core:2.+'
 }
+
